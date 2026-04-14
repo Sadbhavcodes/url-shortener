@@ -35,7 +35,7 @@ public class UrlServiceImpl implements UrlService{
     @Override
     public String getOriginalCode(String shortCode) {
         Url url = urlRepository.findByShortCode(shortCode)
-                .orElseThrow(() -> new RuntimeException("URL not found"));
+                .orElseThrow(() -> new com.sadbhav.urlshortener.exception.UrlNotFoundException("URL not found"));
         url.setClicks(url.getClicks() + 1);
         urlRepository.save(url);
         return url.getOriginalUrl();

@@ -53,7 +53,10 @@ export default function Navbar() {
               </button>
 
               {/* User Avatar */}
-              <button className="h-9 w-9 rounded-full overflow-hidden ring-2 ring-gray-100/50 outline-none focus:ring-blue-500 transition-all ml-1">
+              <button 
+                onClick={() => navigate('/account')}
+                className="h-9 w-9 rounded-full overflow-hidden ring-2 ring-gray-100/50 outline-none focus:ring-blue-500 transition-all ml-1"
+              >
                 <img 
                   src={`https://api.dicebear.com/7.x/notionists/svg?seed=${user.username || 'User'}&backgroundColor=f4f7fe`} 
                   alt="User Avatar"

@@ -12,7 +12,8 @@ export const useUrl = () => {
     setError(null);
     try {
       const data = await shortenUrl(longUrl, user?.id);
-      return `localhost:5173/${data.code}`;
+      const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8080/api/v1';
+      return `${baseUrl}/urls/${data.shortCode}`;
     } catch (err) {
       const errMsg = err.response?.data?.message || 'Failed to shorten URL. Please try again.';
       setError(errMsg);

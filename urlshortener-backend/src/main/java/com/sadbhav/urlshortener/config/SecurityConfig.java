@@ -36,7 +36,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors(cors -> cors.configurationSource(request -> {
             CorsConfiguration configuration = new CorsConfiguration();
-            configuration.setAllowedOrigins(List.of("http://localhost:5173")); // Allow only the React frontend
+            configuration.setAllowedOrigins(List.of("http://localhost:5173", "http://localhost:5174")); // Allow React frontend on both ports
             configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
             configuration.setAllowedHeaders(List.of("*"));
             configuration.setAllowCredentials(true);
@@ -46,6 +46,8 @@ public class SecurityConfig {
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/v1/auth/**").permitAll()
+                .requestMatchers("/api/v1/urls/shorten").permitAll()
+                .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/v1/urls/*").permitAll()
                 .requestMatchers("/api/v1/urls/**").authenticated()
                 .anyRequest().permitAll()
         );

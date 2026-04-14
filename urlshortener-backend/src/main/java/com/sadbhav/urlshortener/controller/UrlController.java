@@ -28,7 +28,17 @@ public class UrlController {
     @GetMapping("/{shortCode}")
     public ResponseEntity<Void> redirectUrl(@PathVariable String shortCode) {
         String originalUrl = urlService.getOriginalCode(shortCode);
-        return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(originalUrl)).build();
+        
+        if (!originalUrl.matches("^(?i)(http|https)://.*$")) {
+            originalUrl = "https://" + originalUrl;
+        }
+
+        try {
+            return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(originalUrl)).build();
+        } catch (IllegalArgumentException e) {
+            // If the URL is somehow malformed visually but still found in DB
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
 
     // API endpoint 3

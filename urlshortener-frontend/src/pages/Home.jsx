@@ -69,7 +69,7 @@ export default function Home() {
           {shortUrl && (
             <div className="mt-8 mx-auto max-w-md p-4 bg-white/80 backdrop-blur-md rounded-2xl ring-1 ring-green-500/20 text-center flex flex-col items-center justify-center gap-2 shadow-lg shadow-green-500/5 transition-all">
               <span className="text-[11px] font-bold text-green-600 tracking-wider uppercase">Successfully created</span>
-              <a href={`http://${shortUrl}`} target="_blank" rel="noreferrer" className="text-[17px] font-extrabold text-[#0e5ef5] hover:underline">
+              <a href={shortUrl} target="_blank" rel="noreferrer" className="text-[17px] font-extrabold text-[#0e5ef5] hover:underline">
                 {shortUrl}
               </a>
             </div>
